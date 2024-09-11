@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Health Plan</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    padding-top: 80px;
+}
+
+/* Navbar styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fdf3ee; /* Peach color for the top bar */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    position: fixed; /* Fixes the navbar to the top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 5px;
+}
+
+.clove {
+    color: #e67e22; /* Orange color for Clove */
+    font-size: 50px; /* Larger size for Clove */
+}
+
+.smiley {
+    color: black;
+    font-size: 36px;
+    margin-left: 5px;
+}
+
+.dental {
+    font-family: 'Arial', sans-serif;
+    color: #5D4037; /* Dark brown color for Dental */
+    font-size: 18px; /* Smaller size for Dental */
+    letter-spacing: 2px;
+    margin-top: -5px; /* Adjust spacing between Clove and Dental */
+}
+
+/* Navigation links */
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    position: relative; /* To position the arrow */
+}
+
+/* Style for the navigation links */
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    position: relative;
+}
+
+/* Separator between the links */
+.nav-links li:not(:last-child)::after {
+    margin-left: 10px;
+    color: #999;
+    font-weight: lighter;
+}
+
+/* Add the downward arrow next to 'Treatments' and 'Dental Plans' */
+.nav-links li a::after {
+    content: '▼'; /* Downward arrow */
+    font-size: 12px;
+    color: #e67e22; /* Orange color for the arrow */
+    position: absolute;
+    right: -15px;
+    top: 0;
+}
+
+.chat-button {
+    position: fixed;
+    bottom: 20px; /* Distance from the bottom */
+    right: 20px; /* Distance from the right */
+    background-color: #e67e22; /* Button color */
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001; /* Ensure button is above other content */
+}
+.modal-content textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.modal-content button {
+    background-color: #e67e22; /* Button color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.modal-content button:last-child {
+    background-color: #ccc; /* Close button color */
+    color: #000;
+}
+
+
+.appointment-btn {
+    background-color: #ff7a00;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .appointment-btn:hover {
+    background-color: #e66e00;
+}
+  /* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    position: relative;
+}
+.modal-step {
+    display: none;
+}
+
+.modal-step.active {
+    display: block;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.modal-content button#closeAppointmentModal {
+    background-color: #dc3545;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    background-color: #ff7b00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #c86d18;
+}
+button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(21, 12, 3, 0.5); /* Custom focus outline */
+}
+
+/* Button disabled state */
+button:disabled {
+    background-color: #ccc; /* Grey color for disabled */
+    color: #63a27c; /* Darker grey text */
+    cursor: not-allowed;
+}
+
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+
+.form-step {
+    display: none; /* Hidden by default */
+}
+
+.form-step input, .form-step select, .form-step button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+#step1 {
+    display: block; /* Show the first step by default */
+}
+/* Hero section */
+.hero-container{
+    display: flex; /* Use Flexbox layout */
+    justify-content: space-between; /* Space between content and image */
+    align-items: center; /* Vertically center the content and image */
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background-color: #D5E8D4; /* Optional background color */
+    overflow: hidden; /* Hide overflow if any */
+    padding: 20px; /* Optional padding */
+    position: relative;}
+
+
+/* Individual hero slides */
+.hero-slide {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100vw; /* Full viewport width for each slide */
+    transition: transform 1s ease-in-out; /* Smooth sliding effect */
+    height: 100%; /* Full height of the container */
+}
+
+.hero-content {
+    max-width: 50%; /* Restrict content width to half of the container */
+    padding: 20px; /* Optional padding */
+    box-sizing: border-box; /* Include padding in width calculation */
+
+}
+.hero-image {
+    max-width: 50%; /* Restrict image width to half of the container */
+    height: 100%; /* Full height of the container */
+    display: flex;
+    justify-content: flex-end; /* Align image to the right */
+}
+.hero-image img {
+    width: 100%; /* Full width of the container */
+    height: 100%; /* Full height of the container */
+    object-fit: cover; /* Cover the container, maintaining aspect ratio */
+}
+
+.hero-content h2 {
+    font-size: 60px;
+    color: #333;
+}
+
+.hero-content p {
+    font-size: 30px;
+    margin: 0; /* Remove the previous margin */
+}
+
+.hero-image {
+    display: flex; /* Use Flexbox for alignment */
+    justify-content: flex-end; /* Align the content (image) to the right */
+    padding: 60px; /* Optional padding for spacing */
+}
+.hero-image img {
+    max-width: 100%; /* Ensure the image is responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+.price-highlight {
+    color: #333; /* Dark color for the price */
+    font-weight: bold; /* Make the price bold */
+}
+
+/* Button styling */
+.buy-btn {
+    padding: 20px 40px; /* Increase padding for a larger button */
+    background-color: #f39c12; /* Orange background color */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 30px; /* More curved, oval shape */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 20px; /* Larger font size for readability */
+    text-align: center; /* Center the text */
+    display: inline-block; /* Ensure button aligns correctly */
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+
+/* .box img {
+    width: 100px; /* Set your desired width */
+    /* height: 100px; Set your desired height */
+    /* object-fit: cover; Ensures the image maintains its aspect ratio while covering the dimensions */
+/* }  */
+#closeTreatmentsModal {
+    background-color: #ff7b00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#closeTreatmentsModal:hover {
+    background-color: #e66e00;
+}
+
+/* Table Container Styles */
+#treatmentsTableContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #cc8686;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#treatmentsTableContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #cc8686;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#treatmentsTableContainer h2 {
+    text-align: center;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+}
+
+#treatmentsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+#treatmentsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+
+#treatmentsTable th, #treatmentsTable td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+#treatmentsTable th {
+    background-color: #f4f4f4;
+    color: #333;
+    font-weight: bold;
+}
+
+#treatmentsTable td {
+    color: #666;
+}
+
+#treatmentsTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#treatmentsTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #treatmentsTableContainer {
+        padding: 10px;
+    }
+
+    #treatmentsTable th, #treatmentsTable td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+
+
+ 
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.services-box {
+    background-color: #fdf3ee; /* Peach color */
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.box {
+    background-color: #fff; /* White background for individual boxes */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.box img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.box p {
+    color: #333;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.explore {
+    display: inline-flex;
+            align-items: center;
+            font-size: 18px;
+            color: #5D4037;
+            text-decoration: none;
+            border-bottom:  solid #5D4037;
+            /* padding: 10px 20px; */
+            margin-top: 40px;
+            position: relative;
+}
+
+
+.explore::before {
+    content: "\1F50E"; /* Unicode for a magnifying glass */
+    font-size: 1.2em;
+    color: #ffc107; /* Orange color */
+    position: absolute;
+    left: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+.explore::after {
+    content: '→'; /* Unicode character for right arrow */
+    font-size: 20px;
+    color: #ffc107;
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px;
+}
+.call-to-action {
+    background-color: #f0f0f0;
+    padding: 40px;
+    text-align: center;
+}
+
+.call-to-action h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.call-to-action p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.call-to-action .button {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.social-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.social-links li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.social-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.container2 {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    gap: 20px;
+    flex-wrap: wrap; /* Ensures content wraps on smaller screens */
+}
+
+.left-section {
+    width: 35%;
+    height: 600px;
+    background-color: #e0faf8;
+    padding: 60px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.left-section:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.left-section h2 {
+    color: #333;
+}
+
+.left-section form {
+    margin-top: 50px;
+    
+}
+
+.left-section input, .left-section select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+}
+
+.left-section button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff7b00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.right-section {
+    width: 55%;
+}
+
+.top-box {
+    background-color: #f9e5dd;
+    padding: 20px;
+    height: 300px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.top-box:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bottom-boxes {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box2 {
+    background-color: #b9e2c3;
+    padding: 20px;
+    width: 48%;
+    height: 300px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.box2 a {
+    display: block;
+    color: inherit; /* Inherit color from .box2 */
+    text-decoration: none;
+}
+
+.box2 a:hover {
+    color: #ff7b00; /* Change color on hover */
+}
+
+/* Hover Effect for Boxes */
+.box2:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+h2, h3 {
+    color: #0c0606;
+}
+
+p {
+    color: #777;
+}
+
+
+/* Rotating Text Section */
+.rotating-text {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    height: 40px;
+    overflow: hidden;
+}
+
+.rotating-text p {
+    animation: fade 2s infinite;
+    opacity: 1;
+}
+
+@keyframes fade {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+/* Tablet Screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .container2 {
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .left-section, .right-section {
+        width: 100%; /* Full width on tablets */
+        height: auto; /* Adjust height to fit content */
+        padding: 30px; /* Reduce padding on smaller screens */
+    }
+
+    .bottom-boxes {
+        flex-direction: column; /* Stack boxes vertically */
+    }
+
+    .box2 {
+        width: 100%;
+        margin-bottom: 20px; /* Add space between stacked boxes */
+    }
+}
+
+/* Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+    .left-section, .right-section {
+        padding: 20px; /* Further reduce padding on mobile */
+    }
+
+    .left-section {
+        height: auto;
+    }
+
+    .box2 {
+        padding: 15px;
+        height: auto;
+    }
+
+    .top-box {
+        height: auto;
+        padding: 15px;
+    }
+
+    .rotating-text {
+        font-size: 1.2rem;
+    }
+}
+
+  
+  .corporate-trust-section {
+    text-align: center;
+    background-color: #e6e6db;
+    padding: 50px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin: 50px auto;
+    position: relative;
+  }
+  
+  .corporate-trust-section h1 {
+    font-size: 36px;
+    color: #ff7a00;
+  }
+  
+  .corporate-trust-section p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .logo-container {
+    overflow: hidden;
+    width: 100%;
+    margin: 40px 0;
+  }
+  
+  .logos {
+    display: flex;
+    animation: scroll 17s linear infinite;
+  }
+  
+  .logos img {
+    margin: 20px 40px;
+    width: 150px;
+    height: 70px;
+    object-fit: contain;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  
+  
+  .register-link {
+    display: block;
+    margin-top: 15px;
+    color: #ff7a00;
+    text-decoration: none;
+  }
+  
+  .register-link:hover {
+    text-decoration: underline;
+  }
+  
+
+main {
+    padding: 50px 20px;
+}
+
+.faq {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.faq-item {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.question {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.answer {
+    margin-top: 10px;
+    display: none;
+}
+
+footer {
+    background-color: #480505;
+    color: rgb(171, 108, 108);
+    padding: 50px 20px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.column {
+    width: 25%;
+}
+
+.column h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.column ul {
+    list-style: none;
+}
+
+.column ul li {
+    margin-bottom: 5px;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons img {
+    width: 24px;
+    margin-right: 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+}
+/* Tablet styles */
+@media (max-width: 1024px) {
+    .container2 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-section, .right-section {
+        width: 90%; /* Reduced width for tablets */
+    }
+
+    .bottom-boxes {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .box {
+        width: 45%; /* Adjusted width for tablet screen */
+    }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .container2 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-section, .right-section {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .bottom-boxes {
+        flex-direction: column; /* Stack boxes vertically */
+        gap: 20px;
+    }
+
+    .box {
+        width: 100%; /* Make each box take full width on mobile */
+    }
+
+    .left-section button {
+        margin-top: 10px;
+    }
+}
+
+/* Small Mobile styles */
+@media (max-width: 480px) {
+    .left-section input, .left-section select, .left-section button {
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
+
+    .box h3 {
+        font-size: 16px;
+    }
+
+    .box p {
+        font-size: 14px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) { 
+    .hero-image {
+        width: 80%; /* Slightly smaller for tablet-sized screens */
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 480px) { 
+    .hero-image {
+        width: 70%; /* Reduce size for mobile screens */
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content {
+        max-width: 60%; /* Full width on smaller screens */
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h2 {
+        font-size: 24px;
+    }
+
+    .hero-content p {
+        font-size: 18px;
+    }
+
+    .buy-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+/* Responsive Design */
+
+
+
+</style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1><span class="clove">Clove</span><span class="smiley">:)</span></h1>
+                <h2 class="dental">D E N T A L</h2>
+            </div>
+            <ul class="nav-links">
+            <li><a href="#" id="treatmentsLink">Treatments</a></li>
+            <span class="separator">|</span>
+            <li><a href="#">Dental Plans </a></li>
+            <span class="separator">|</span>
+            <li><a href="#" id="doctorsLink">Our Doctors</a></li>
+            <span class="separator">|</span>
+            <li><a href="#">Careers</a></li>
+            <span class="separator">|</span>
+            <li><a href="#">Find a Clinic</a></li>
+        </ul>
+        <div id="treatmentsModal" class="modal">
+         <div class="modal-content">
+        <div id="treatmentsTableContainer" >
+            <h2>Available Treatments</h2>
+            <table id="treatmentsTable">
+                <thead>
+                    <tr>
+                        <th>Treatment Name</th>
+                        <th>Description</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Content will be dynamically added -->
+                </tbody>
+            </table>
+            <button id="closeTreatmentsModal">Close</button>
+        </div>
+    
+            <div class="right-section">
+                <!-- Book Appointment Button -->
+                <button id="bookAppointmentBtn" class="appointment-btn">Book Appointment</button>
+
+                <div id="appointmentModal" class="modal">
+                    <div class="modal-content">
+                        <!-- Step 1 -->
+                        <div id="step1" class="form-step">
+                            <h2>Step 1: Personal Information</h2>
+                            <form id="appointmentForm">
+                                <input type="text" id="name" placeholder="Name" required>
+                                <input type="email" id="email" placeholder="Email" required>
+                                <input type="text" id="mobile" placeholder="Mobile Number" required>
+                                <input type="text" id="otp" placeholder="OTP" required>
+                                <button type="button" id="verifyOtpBtn">Verify OTP</button>
+                            </form>
+                            <button type="button" id="nextStep1">Next</button>
+                        </div>
+            
+                        <!-- Step 2 -->
+                        <div id="step2" class="form-step" style="display: none;">
+                            <h2>Step 2: Appointment Details</h2>
+                            <form id="appointmentDetailsForm">
+                                <input type="text" id="city" placeholder="City" required>
+                                <input type="date" id="date" required>
+                                <select id="concern" required>
+                                    <option value="" disabled selected>Select Concern</option>
+                                    <option value="1">General Checkup</option>
+                                    <option value="2">Tooth Pain</option>
+                                    <option value="3">Cleaning</option>
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <input type="text" id="clinic" placeholder="Clinic" required>
+                                <button type="submit">Submit</button>
+                            </form>
+                            <button type="button" id="prevStep2">Previous</button>
+                        </div>
+            
+                        <!-- Close Button -->
+                        <span class="close" id="closeModal">&times;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Floating Chat Button -->
+<div id="chatButton" class="chat-button">
+    <span>Chat</span>
+</div>
+
+<!-- Chat/Help Modal -->
+<div id="chatModal" class="modal">
+    <div class="modal-content">
+        <h2>Chat with Us</h2>
+        <p>How can we assist you today?</p>
+        <!-- Chat interface (replace with real chat widget if needed) -->
+        <textarea placeholder="Type your message here..."></textarea>
+        <button id="sendMessage">Send</button>
+        <button id="closeChatModal">Close</button>
+    </div>
+</div>
+
+    <section class="hero-container">
+        <div class="hero-slide">
+            <div class="hero-content">
+            <h2>Advance Dental Health Plan</h2>
+            <p>Dental care worth ₹8,000/-<br>  <span class="price-highlight"> only at ₹550/-</span><br>
+            <button class="buy-btn">Buy Now</button>
+        </div>
+        <div class="hero-image">
+            <img src="pic1.jpg" alt="Smiling Woman" style="width: 1000px; height: 400px;">
+        </div>
+    </div>
+        <div class="hero-slide">
+            <div class="hero-content">
+                <h2>New Dental Treatment</h2>
+                <p>Premium care worth ₹10,000/-<br>  <span class="price-highlight"> now just ₹600/-</span><br>
+                <button class="buy-btn">Buy Now</button>
+            </div>
+            <div class="hero-image">
+                <img src="pic2.jpg" alt="Dental Treatment">
+            </div>
+        </div>
+    </section>
+
+
+    <div class="container">
+        <div class="services-box">
+            <h1>All dental issues from simple cleaning<br> to full mouth rehabilitation under one roof</h1>
+
+            <div class="grid">
+                <div class="box">
+                    <img src="pic2.jpg" alt="Root Canal" style="width: 100px; height: 100px;">
+                    <p>Root Canal Treatment</p>
+                </div>
+                <div class="box">
+                    <img src="pic3.jpg" alt="Braces" style="width: 100px; height: 100px;">
+                    <p>Braces</p>
+                </div>
+                <div class="box">
+                    <img src="pic4.jpg" alt="Teeth Whitening" style="width: 100px; height: 100px;">
+                    <p>Teeth Whitening</p>
+                </div>
+                <div class="box">
+                    <img src="pic6 .jpg" alt="Invisible Braces"  style="width: 100px; height: 100px;">
+                    <p>Invisible Braces</p>
+                </div>
+                <div class="box">
+                    <img src="pic5.jpg" alt="Dental Implants" style="width: 150px; height: 100px;">
+                    <p>Dental Implants</p>
+                </div>
+                <div class="box">
+                    <img src="pic10.jpg" alt="Smile Makeover" style="width: 100px; height: 100px;">
+                    <p>Smile Makeover</p>
+                </div>
+                <div class="box">
+                    <img src="icons/kids-dentistry.png" alt="Kids Dentistry" style="width: 100px; height: 100px;">
+                    <p>Kids Dentistry</p>
+                </div>
+                <div class="box">
+                    <img src="icons/gum-treatment.png" alt="Gum Treatment"  style="width: 100px; height: 100px;">
+                    <p>Gum Treatment</p>
+                </div>
+                <div class="box">
+                    <img src="pic7.jpg" alt="Wisdom Tooth"  style="width: 100px; height: 100px;">
+                    <p>Wisdom Tooth</p>
+                </div>
+                <div class="box">
+                    <img src="icons/laser-dentistry.png" alt="Laser Dentistry"  style="width: 100px; height: 100px;">
+                    <p>Laser/Painless Dentistry</p>
+                </div>
+                <div class="box">
+                    <img src="pic9.jpg" alt="Crowns and Bridges"  style="width: 100px; height: 100px;">
+                    <p>Crowns & Bridges</p>
+                </div>
+                <div class="box">
+                    <img src="pic100.jpg" alt="Dentures"  style="width: 100px; height: 100px;">
+                    <p>Dentures</p>
+                    
+                </div>
+                
+            </div>
+            <a href="#" class="explore">Explore Treatments</a>
+        </div>
+    </div>
+    <div class="container2">
+        <div class="left-section">
+            <h1>Expert Guidance for Healthy Smiles</h1>
+            <p>Contact Now</p>
+            <form id="appointmentForm">
+                <input type="text" id="name" placeholder="Name" name="name" required>
+                <input type="text" id="phone" placeholder="Mobile Number" name="phone" required>
+                <select id="service" name="concern" required>
+                    <option value="" disabled selected>Select Concern</option>
+                    <option value="1">General Checkup</option>
+                    <option value="2">Tooth Pain</option>
+                    <option value="3">Cleaning</option>
+                    <option value="4">Kids Dentistry</option>
+                    <option value="5">Dental Implants</option>
+                    <option value="6">Smile Makeover</option>
+                    <option value="7">Root Canal Treatment</option>
+                    <option value="8">Gum Treatment</option>
+                    <option value="9">Wisdom Tooth</option>
+                    <option value="10">Laser/Painless Dentistry</option>
+                    <option value="11">Crowns & Bridges</option>
+                    <option value="12">Dentures</option>
+                </select>
+                <button type="submit">Book A Free Consultation</button>
+            </form>
+        </div>
+
+        
+        
+
+        <div class="right-section">
+            <div class="top-box">
+                <h1>10x Safety Protocols</h1>
+                <p id="rotatingText">With UV light sterilized equipment at all clinics</p>
+                <div class="doctor-image">
+                    <img src="doctor.jpg" alt="doctor" style="width: 250px; height: 190px; ">
+                </div>
+            </div>
+            <div class="bottom-boxes">
+                <div class="box2">
+                    <a href="page1.html" class="box-link"></a>
+                    <h2>450+ Neighbourhood</h2>
+                    <p>Clinics Pan India</p>
+                    <div class="nabourhood-doctor">
+                        <img src="nabourhood.jpg" alt="Smiling Woman" style="width: 150px; height: 200px;">
+                    </div>
+                    
+                </div>
+                <div class="box2">
+                    <h2>1200+ Expert Doctors</h2>
+                    <p>Covering All Specialities</p>
+                    <div class="expert-image">
+                        <img src="expertdoctor.jpg" alt="Smiling Woman" style="width: 160px; height: 190px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div class="corporate-trust-section">
+        <h1>250+ Corporate Trust Us</h1>
+        <p>Check if your company is one of them & avail exclusive benefits</p>
+    
+        <div class="logo-container">
+          <div class="logos">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ9u3RvMdTbIEcFCuUXD371kWGWzGT60KriA&s" alt="polocybazr">
+            <img src="data:image/png;base64,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" alt="lackme">
+            <img src="data:image/jpeg;base64,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" alt="TAJ">
+            <img src="data:image/jpeg;base64,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" alt="BATA">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ9u3RvMdTbIEcFCuUXD371kWGWzGT60KriA&s" alt="polocybazr">
+            <img src="data:image/jpeg;base64,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" alt="TAJ">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxASEBAQDxISDxAQEA8PDw8PEBAPDw8PFRUWFhURFRUYHSggGBolGxUVITEhJSkrLy4uFx8zODMsNygtLisBCgoKDg0OFxAQGy0fHR0tKy0rKy0tLS0vKy0tLS0tLS0tLS0tLS0tKy0rLS0tLS0tLSstLS0tKy0tKy0tLSstLf/AABEIAKgBLAMBIgACEQEDEQH/xAAcAAACAgMBAQAAAAAAAAAAAAAAAQIEAwUGBwj/xABHEAABAwECBwsKBQMEAgMAAAABAAIDEQQFEiExQVFh0QYTFBVScYGRkpPSByIyU1RicqGisSNCgrLBFmPwM6PC4uHjJENz/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAEDAgQF/8QAJREBAQADAAIBBAEFAAAAAAAAAAECAxEhMRIEExRRQSIyQmFx/9oADAMBAAIRAxEAPwCnwmD1kXeM2pi0Q+sj7bNqXFUHqmdkI4ps/qmdkLRwnv8AD6yPts2o3+Hlx9tm1Q4og9WzshHFEHq2dQQT36Hlx9tu1PfIuWztt2rGLos/q2dSOJ4PVt6lBlw4uWzttTrHymdpqwi54PVtRxNZ/Vt+aDN+HymdpqdI+U3rasHEtn9WPntRxLZ/VjrdtQWMFmlvWEwxmlvWFW4js/qx1u2pcRWf1f1O2oLWAzS35J723V8lU4hs/I+p21LiCz8j6nbUFzem6vkjeW6vkqf9P2fkfU7an/T9n5H1P2oLfB26k94bqVP+nrPyPqftR/T9n5H1v2qi5vDdSODt0D5Kn/T9n5B7T9qP6fs/IPbdtQXODt0BBs7dAVP+nrPyT237Uv6fs/JPbftUFzg7dCODt0DqVM7nrPyT237Uf0/Z+S7tv2oLos40fJM2caPkqB3PwaHdt21B3PwaHdt+1UXeDjQjg40Kibgg0O7b9qXEEGh3bdtUF82caPkomzjR8lR4gh9/vH7U+IYff7x+1BcNmGj5JGyjR8lT4ii9/vHJcRRaX945Bc4MNHySNmGgdSpG44tMneOS4jj5UneOQXeDDQgWYaAqXEkfKk7xyOJI+VL3jkFzg40BHB26AqRuSPlS965LiRnKl7xyDbqQCQUgqhUTATQgKJoopAIEAmAr933RNNjY2jeW7E3o09C6Kx7l4m45S6Q6PQb8sfzWWe7HFpjrtcdRSaw8/QvRrPd8LPQjYNYaK9ao7pN0tlsDGutBJc+u9QxgOlkplIGIACoxkgYxpWX5HfUd/Z/dcOR0Iouu3LbqLNeLZd7Y+N0RbvkU7WYWC6uC8FpIIOC4Zcyv2u47O/KwNPKZ5p+WIq/kcvLD7XfVcFRC2d8XO+Ag1wo3GjXZCDoI0rWLfHKZTsY2WXlCaELpAhCaBJoonRAklKiAECokp0SIQRoo0W5uq6MMYclQ38rchdrOpVL4szI5MFhytqQTUtNVnNuNy+Md3CydUCElJRIWjgkIQgCkmolAioqRUUUk0ICIRUVIqNEVkTokmiJIUapOcgzwxlzmsaKucQ1o0ldZd1wRRN320Fri0YRwiBFGNJJy85Xnd6PJYR0ihIIIxggjGCCAahayWe8bylgsc0znsLmsDaBrKDGZpAP9RwAJqdGnLhumV9Xka6+Pa7pvKK0R77ZzhxYTmMkAIZJg4i5mltaiuQ0NFeVawWRkMUcMQwY4mNjYNDQKdasgLwvUJJWta57yGta0uc44g1oFST0L583T3o622uW0GtHkMhYcrYW4mNppykjS4r0fyt7oWwwMsgcWutNHTFuNzbMDjoNLji1hrlLcfuvueaVkFlZweYgNiEtnbG6SgyB4rV1BnNStcP6Z8uM8vPgeSnc7LZopp52ujfaN7ayNwo5sTKkOcMxJccRzAaV3iRK026WK3uiPF8sUUlD/AKsWGXamuJo087Ss7flXcnIwbtbwjZC2EkGSVzS1ucNacb9QzdPOuQa5c3ZjOZXutTnvnwi2V0pq/CBpgnQBoGIZl0l2Wd0rgyMYTjj1AaScwXu1T4Y+XmzvyqSzQWaR/oMc7W1pI611V33BFGAXjfX6T6A5m7VtwKZFll9TJ/a7x0/twpuq0AV3p/VX5Ks5hBo4Fp0OBB+a3m6bd1Y7E4xEme0DLDFTzK5N8ecTcoxYzqVfcvupgvMyxPgMb42b4AXCRrmVpVrgAQQSMVM+fHS478vdngurH1K17LO8irWOI0hpIT4NJyH9h2xd1HZ2ta1rRQNFANSeAuPyr+l+xHBzWd7AC9jmg5C5pAKUML31wGl1MtBWiubtb9a2Vtmbj3sB8mp5Hmt6Bj/UuduXdTK2Ztlis7ZnzSijzaHMNNJbvRoAATl0rb7mXw+XPLP4T5cdRdl04VXS4TQDQNyE6zqW0huuFpqGCoyVJd91djCytavFltyyvt6ZhIwuNATQmgJoBUmmYDSuCns9qLnWmeNzA9+R1Ktr6IpmFBRbzdlu0iu98UbozPJK1zy1r2s3tgIAJqDlOFT4StDYt11pvA7xFZ2Rtd6QwjK7BB9Ivo0NGTMVpp+WPn+HGzl8JNKyxQud6LXO+FpP2XTWC4Y2AGT8R2evoDmGfpW1awAUAoNAxALXL6mf4xxNP7cQbBNl3p/ZKrOFDQgg5wcRXQbo92FksZ3uRxkmy7zFRz2jFjcSQG5chNdSq3Bugs15b6zenMkiAcRJgmrHVAc17TpGTEk35c7Z4LqnqVq2xOIqGuI0hpIS3p3Jd1FdzDC1rGsaKBoAASwVz+Vf0v2P9uFlicMbmuaDkLmkA9axFbvdVeIDmwDKKSP1E+iOok9S0gK9OvK5Y9rHPGS8hJoQtHJKKkUkE0IQiBJwUiuhs259stlZIx4MjvPDgasIyYB5qddVxnnMPbrHG5enJzx1XW7gLlDA+1OHnSAxxVzRg+cekj6dapWbcxO94a8BjK+c4OBNM9BpXdwRNY1rGijWgNaBmAxALzb9ss5G+vC97U1GedkbHyPIaxjXPe45GtaKknoCmFxm7e3G0yxXTZnefMQ+2PGMQQNo7BdrOI00AD8wXmk7W18PKd0dtfbrTNaX1G+H8Np/+uIYmM6Bl1kp7jLidJeNja2vmzxzOI/KyIiQn6adK65+4C1sdgtDJW1xPa8Mxaw7GPmu13IbmG2MOe4h88gDXOHosZlwG110qc9BoXpyzxmPhjjjlcvLpUUSBTBXlbPNt3Vma221aPOkije4AVJfVzeujQus3K3ZvMDSW0lkAfJUUcK+izVQfOqhfl7XfYnutFqexkzgAwU3y0OaMzGCppzUGlbm77WyaKKeM4UcsbJGHS1wqOnGtMs7cJP4cTGTK1louV8ot+vsll/BNLROTFE7F+GKVfJzgUA1uGhdYuf3X7mm21kYL97fE5xY7BwhRwGECKjQM+ZcY2dnXeXeeHg8Vic4/me5x1uc5zj1kknpqvaPJ5uVNigc+Uf/ACJ8EyDLvTBXBj58ZJ1mmZWLh3MWWxFj3va+d7gyN8mCzzz+WNtfSpXSV0zitNuzviOMMOeaWZUL1vFlnhkmf6MbS6mdzsjWjWSQOlXxkXP7q7jda2RxiUxNbJhvAbhYdAQBlGlZTnfLu+vDyl0z5XvlkNXyPc9x94muLUu13CXAY3PtUrS17hvcTXChDDjc+mauIcwOlbCGw3fYDE2R7BNK5kce+ODpnvcQ0BjRkxkYwOldFTKttm3s5J4Z4YcvabCnNO1jXSPIaxjXPc45mgVJSYFVvq722iF0Ly5rX4IcWGjqAg0+SwjWvF74nfbLVJO4OLpXUjYKuLWDExgA0CmTPVeqbjrlFlszQW4MsgD5a5QTkZ0DFz1VS22y7LpZV2C2ShIjaN9tUg5soGs0C6azztkYyRhDmSNa9rhkLXAEHqK12Z9kknIzxx5e32yVXM7vd0LrJZgIf9eclkRxHewB50lNVRTWQulqud3X7m+GCIh4Y+IupUEtLXUqNWQLPDnZ307y7zw8XFkc4knCe5xJJNXOc4nLpJJXrnk/3NuscD5JRSefBLm544xXBYdeMk89Mys7n9y0FlLZJCJJiQ1jnUa1rjmY0nG7Xl5l0UhxLXbsl8T04ww55pg4lVttsZDHJK/0Y2lx16ANZOLpWYHEtbfV2NtMYie5zW4bXOwCBhUzGoyZ+gLGc75af8cLd0c1rlc8DCfI4vefytrpOYZhzK4Y3NJa4YLmmhBzFbm8r+sd3MEEYD5aYoIzV1eVK78vTj0BaA3o+dxkkphHFQCgaMwC+hqzyyvrkeXPGT+fLMhQDlKq3ZGkmCooMiVUJIjDaHmhWksu6e22GRzoHB8TjV8EoLonHORTGx2sdIK3coxLVWyxBwyLnLGZTldY3np012+VyxmnCYZoHUxlgbPHXUQQ76VspfKxdQFQ6d55LbO8E9qg+a8unuUHMsDbkGhee/T4tfu12N+eVieYGOwQ8GBxG0TYL5gPcYPNadZLuZcPHb7TDIJ4ZZGTBxeZQ7Ce5x9IvrXCrnBrVbSC66ZqKy67hTItMdUkc3O1v7p8r5DQLbZi5wyyWYt87WY3kU7S3rPK1dtMYtLToMAJ+TiPmvNZ7nBzKtxIs79PHc216NbPLFZBXeLPaJTmw97hbXnDnH5Llb28pV52irYS2xsPqBhS01yO+7Q1aqG5QMyvw3YAusdEiXZa5qWyvcS97nPe/G573F73HS5xxldPuO3eWm7m7xIzhFlqXNYXYMsJJqd7dkIJJOCc5yhWG2AaFVtV1By7y1yzjmZWO6Z5X7uIqY7U13IMUZPWH0WqvXyw4QLbFZXYRyPtLmgN14DCa9oLizcQrkViG6AMgosp9PHX3a1V73xbbROy0zyvdNG4PicKAQkEOG9tGJuMDnpjqvRbp8r8JY1tthkjlAo98DWvieeUAXBza6MfOuWN0hU5rjBORd5aZYk2WO5tXliswBEFmnldmwzHEzrBcfkuUvbyi3naatiLbIw5oBWSmgyOx9LQ1UobkaMyvRXUFMdGMLstcqRK2QTYTjM17ZRI4l7t8aQ5riTjOMDKvTbr8rNnLQLXDLFJ+Z0QEsROkYw4c1DTStBJdgpkWsnuIEq56ZkY7LHcWvys2Jo/Binmdm81sTK6yTX5Fcne/lBvK01bFg2SM5oamSmgyOx9kNVOK4wMyvRXWApjoxhdlrlZLC4kucS95NXOcS5zjpJOMldTuQ3dzWFgs87DPZ2k73gkCWEHK1tcTm6jSmnMrHABTIqNrugOzLvLXLOJMrHdR+U+7CKl8rDyXQPLh2aj5rWXn5WIaFtkgklfmfNgxx89AS482JcTxCK5FYhuimQLKfTYu7trW3tugt087LRLK7fInB8Ib5scLgajAZkGutSc5K9Fuvyp2V8Y4U18EwAw8FhkicdLS2pHMR1rkjdQVKS4wSustMsczZY7+0+VGwtH4TJ53aGxiNvSXkH5Fcveu7i3WqrYqWSI4vwiTKRrkzfpA51qobmAzLZ2e76JjoxhdlrX2Cw0x5STUnOScp510dkjoEoLOBmVtrVvIzSaphRATVQ0IQgYP+Y0if8AMakkURjd/mVQc1ZjRFEFR0SjvOpXaBKiL1VazUpYGpWC0IDQh1VMY0JbxqVvBCkGpw6qCFSESthqC1OHVfASMas4KeCERT3kJiJWw0J4IRequ9pGIK3gJ4CIpCJTDFaDE8BBVLVAxq5goLEFLe0wxW8BGAgq0UHNVsxpYCL1TMYRvYVwsSwEOqhjCiYgrmAlgIdU96Cm1gVgsSwUOotopAowUUQOv+VCdf8AMSWClRBKv+VCVUsFRog1vFknr5+9cpC7H+0T96Sr8loDa1GIUFSWNFSK5yFAW9mrvIvEgqcWP9fP3iYu1/r5+2rXDm6u8i8SOHt1d5F4kOq3Fr/XzdsbEuLZPXzdobFb4e3V3kXiRw5mrvIvEgrcXSe0TdpuxAu6T2ibtN2K3w1mlveReJAtzNLe8j8SIq8Wye0TdpuxPi2T2iftN2K1w1mlveR+JMW1nKb249qKq8XS+0T9puxHFsntE3absVvh0fKb22bUjbmcpvbZtRFQ3bL7TN2m7EcXS+0zdbfCrnD4+U3tx7UcOj5Te3HtRVMXdN7TN/t+FSF3ze0zdcfhWwhkDhUVFDTGsoCI1XAJ/apv9vwpiwT+1Tf7XhW0UXyBorjOTEKVNTRBruAWj2qbqi8KjxfaPapuzB4FdNubkp9cPjS4c3R9cPjRVPi60e1TdmHwJG77R7XL2YfArvDm/wCPh8aOHN0fXD40FHi+0+1y9iz+BLi60+1y9iz+BXuHN0Htw+NMW1uj64fGiKHF9q9rl7uz+BHF9q9rk7uz+BX+Gt0Htw+NHDW8k9qLxIKHAbV7U/u7P4FLgdp9pd3UPhV3hg5J7UXiRwsaD2ovEgo8DtPtLu7h8KXBLV7Qe6i8Kv8ACm6D1x+JAtTdB62bUVQ4LavaK88UWxLg1q9eO6Ytjwlug/TtSEwJAx4yQNGIV/hBr94tXrm901BgtXrm9y1bRROXoQawxWr1zO5G1IMtfrY+5/7LZlYt9bUjzjTLRj3Uz5hrQUMG1+si7k+NKls9ZD3L/GrxmGh3dybEb+33uw/YghMwOJDhUF7Qa/CFXZdpIrhNGreo9itu9L9Y/aFli9EcyIo8VnlN7qPYmLr94d1FsV9p/n7p1Tg1/FXvjuotiXFXvDuoti2SMScOtZxT7w7qLYnxR7w7qLYtn/mdNODVm6PeHdR7EcUe8O6j2LaV1fdNOHWqFzjlDuo9iXE/vN7qPYtrRAQao3N7ze6j2KUV2NaSXBrqAFvmNbQ1y4lswcZ6Filz8w+6cE4PzfEfsFmWKD83xH+FlqqADEOhYrT6P6mfuCy1yLDavR/Uz9wQUp7A15rRoJLquLA4nQom5h7ndN2q7EcfS7+Fle7JrNPkVBrOJh/b7pu1I3MP7fdDatqhODVcSt/t91/5T4jb/b7r/stpVCcGp4jb/b7o+JBuNv8Ab7o+JbZCDUG4x/b7o+JRNyD+33TvGtwQknBp+JB/b7p3jS4k/wDy7t3jW4I1n5KLsWOuhBp33OAKne8WM0jcK/Wr0MLWFrWAAB5oB8BWe0+g7mKgfSb8f/AoqwkcvQmkiEQqE8AeSDUeflBIPotzrYKqfSd8Y/YEVrW3c8j/AN0mxM3c/X38nhW2i9EcwQx1c2cjqKcOsZPnfr/4hZIfRHMFi/N+s/YLLFkHMEQ48nSfupKMeTr+6mFQJpKSBJoQgEwkhA01FNBEZT0KEuU8w+6m30j0KEuU8zfugnZ/zfG7+FlWKzfm+J33WUoALFaj5v6mfuCyBY7SPN/Uz9wQQZl6Xfwsjso5/wCCsTcvS77hZX5W8/8ABQTSQEIAoQhA0k0igKpJpIBQfk6R91NQfk6vughafQdzFY3nzm/H/wAXKdpccB3wlY3nzm/GP2lRVlBSqkSqhqqT57vjb+0K0qr/AE3fEz7KKyRZBzBEWQ87vuiLIERZ+coRjz/res0eQcwVeuMfFJ9yrEeQKgZk6/upLD+JmwKY6VLqo/E9zrciM6argSe59SYEvufUgzphV8GXSzqdtUgJdLOp21BnQsFJdLOp21FJdLOp21BnQsFJdLOp21FJdLOp21BmGU9CxyZTzN+5UomnHhEE+6CBTpUXnGeZv3KDJZsh+J/3WUrBZ3Yj8T/uVMvQTChPk/Uz9wSa7F0JTuxD4o/3BBFmXpd9wpyDG3n/AIKxsOPpf9wskoJAwaVBz1IQTQsH4ulnU5L8X3PqQWEKvWX3PqRWX3PqQWE1WrLoZ1uRhS6Gdp2xBYQq+FLoZ2nbEi+Xks7bvCgsKEmTqWHDl5LO2fCjCkOItYBXGQ8mg5sFBK0eg74T9ljflHxt+yyWj0Xcx+ywvOT4mfdRVlJOqVVQ6qtJ6Tudn8qxVVpj5x5mfcqDLFk60RZ/iKceTpP3WEzFpIwHux1q3ApkGkhFjHGMI0GmSpzCpKtNYRnb1oQiJYJ0jrRg6x1oQqh01jrTDTym9aEIHQ8pvWinvN60IQOnvN60D4m9YSQgdPeb1hFPeb1hCEDoOU3rCxSx5w4HJiqMgQhBihkxH4n/AHKbpEIUGRjsShO/zf1M/cEIVDgFfOwgBU0qRjBzqxQcpvWEIQFBym9YSoOU3rCEIDBHKb1hGCOUOsJIQPB94dYSwfeHWhCALfeCWDrCEIDB1hLBOkIQghJESCKjHiVaSoOPlM5jjGRCFFZsNIvQhAsJYZTUmmWjcXSUIQjPG1wzZycozlTq7k/ZCFTr/9k=" alt="BATA">
+            <img src="data:image/png;base64,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" alt="lackme">
+          </div>
+        </div>
+    
+       <!-- Book Appointment Button -->
+<button id="bookAppointmentBtn2" class="appointment-btn">Book Appointment</button>
+
+<!-- Appointment Modal -->
+<div id="appointmentModal" class="modal">
+    <div class="modal-content">
+        <div id="step1" class="modal-step">
+            <h2>Step 1: Appointment Details</h2>
+            <!-- Step 1 Content -->
+            <button id="nextStep1">Next</button>
+        </div>
+        <div id="step2" class="modal-step" style="display: none;">
+            <h2>Step 2: Confirm Details</h2>
+            <!-- Step 2 Content -->
+            <button id="prevStep2">Previous</button>
+            <button id="submitAppointment">Submit</button>
+        </div>
+        <button id="closeAppointmentModal">Close</button>
+    </div>
+</div>
+
+<!-- Register Company Link -->
+<a href="#" id="registerLink" class="register-link">Register</a>
+
+<!-- Register Company Modal -->
+<div id="registerCompanyModal" class="modal">
+    <div class="modal-content">
+        <h2>Register Your Company</h2>
+        <p>Please fill out the form below to register your company:</p>
+        <form id="registerCompanyForm">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required>
+
+            <label for="contactPerson">Contact Person:</label>
+            <input type="text" id="contactPerson" name="contactPerson" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit" id="submitForm">Submit</button>
+            <button type="button" id="closeRegisterCompanyModal">Close</button>
+        </form>
+    </div>
+</div>
+</div>
+    
+    <main>
+        <section class="faq">
+            <h1>Frequently Asked Questions</h1>
+            <div class="faq-item">
+                <div class="question">Can I choose the dentist on my own for treatment?</div>
+                <div class="answer">Yes, you can choose your preferred dentist for your treatment at our clinic.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">Will I get the same doctor each time I visit the same clinic?</div>
+                <div class="answer">We will do our best to provide you with the same doctor each time you visit.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">How are you able to provide lower prices compared to other dental brands?</div>
+                <div class="answer">We offer competitive pricing due to our streamlined processes and partnerships with suppliers.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">How are you able to provide lower prices compared to other dental brands?</div>
+                <div class="answer">We offer competitive pricing due to our streamlined processes and partnerships with suppliers.</div>
+            </div>
+            <div class="faq-item">
+                <div class="question">How are you able to provide lower prices compared to other dental brands?</div>
+                <div class="answer">We offer competitive pricing due to our streamlined processes and partnerships with suppliers.</div>
+            </div>
+        </section>
+           <footer>
+                    <div class="footer-links">
+                        <div class="column">
+                            <h3>Treatments</h3>
+                            <ul>
+                                <li>Laser Dentistry</li>
+                                <li>Dental Fillings</li>
+                                <li>Root Canal Treatment</li>
+                                <li>Laser Dentistry</li>
+                                <li>Dental Fillings</li>
+                                <li>Root Canal Treatment</li>
+                                <li>Laser Dentistry</li>
+                                <li>Dental Fillings</li>
+                                <li>Root Canal Treatment</li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li>Home</li>
+                                <li>Services</li>
+                                <li>About Us</li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <h3>Explore Clove</h3>
+                            <ul>
+                                <li>Our Team</li>
+                                <li>Clinic Overview</li>
+                                <li>Testimonials</li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <h3>Legal</h3>
+                            <ul>
+                                <li>Privacy Policy</li>
+                                <li>Terms of Service</li>
+                                <li>Accessibility</li>
+                            </ul>
+                        </div>
+                        <div class="social-icons">
+                            <span>Connect with Us</span>
+                            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+                            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+                            <a href="#"><img src="youtube-icon.png" alt="YouTube"></a>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+       </body>
+</html>
+<script>
+const textArray = [
+    "With UV light sterilized equipment at all clinics",
+    "Cutting-edge dental care services",
+    "Certified dentists with years of experience",
+    "Advanced pain-free treatment options"
+];
+let currentTextIndex = 0;
+
+function rotateText() {
+    const rotatingTextElement = document.getElementById('rotatingText');
+    if (rotatingTextElement) {
+        rotatingTextElement.textContent = textArray[currentTextIndex];
+        currentTextIndex = (currentTextIndex + 1) % textArray.length;
+    }
+}
+
+// Rotate text every 4 seconds
+setInterval(rotateText, 4000);
+
+// Form Validation
+const phoneRegex = /^\d{10}$/;  // Validate 10-digit phone numbers
+
+document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const service = document.getElementById('service').value;
+
+    if (!name || !phone || !service) {
+        alert('Please fill in all fields');
+        event.preventDefault();
+    } else if (!phoneRegex.test(phone)) {
+        alert('Please enter a valid 10-digit phone number');
+        event.preventDefault();
+    } else {
+        alert('Form submitted successfully!');
+    }
+});
+
+// Handle opening of the modal
+const buttons = document.querySelectorAll('.appointment-btn');
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        document.getElementById('appointmentModal').style.display = 'block';
+    });
+});
+
+// FAQ toggle
+document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const answer = item.querySelector('.answer');
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const treatmentsModal = document.getElementById('treatmentsModal');
+    const treatmentsLink = document.getElementById('treatmentsLink');
+    const closeTreatmentsModal = document.getElementById('closeTreatmentsModal');
+
+    treatmentsLink.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        // Array of treatments to be displayed
+        const treatments = [
+            { name: "Tooth Extraction", description: "Safe and painless removal of tooth", cost: "$150" },
+            { name: "Teeth Cleaning", description: "Professional teeth cleaning", cost: "$100" },
+            { name: "Root Canal", description: "Treatment of the infected root canal", cost: "$300" },
+            { name: "Braces", description: "Aligns and straightens teeth", cost: "$1500" },
+            { name: "Teeth Whitening", description: "Professional teeth whitening", cost: "$250" },
+            { name: "Smile Makeover", description: "Comprehensive treatment to enhance your smile", cost: "$2000" },
+            { name: "Dental Implants", description: "Artificial tooth roots for missing teeth", cost: "$1200" },
+            { name: "Gum Treatment", description: "Treatment for gum disease and inflammation", cost: "$180" },
+            { name: "Wisdom Tooth Extraction", description: "Removal of wisdom teeth", cost: "$350" }
+        ];
+
+        // Get the table body
+        const tableBody = document.getElementById('treatmentsTable').getElementsByTagName('tbody')[0];
+        
+        // Clear any existing rows
+        tableBody.innerHTML = '';
+
+        // Add treatments to the table
+        treatments.forEach(treatment => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${treatment.name}</td>
+                <td>${treatment.description}</td>
+                <td>${treatment.cost}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        // Show the treatments table container
+        treatmentsModal.style.display = 'block';
+    });
+
+    // Close the treatments modal
+    closeTreatmentsModal.addEventListener('click', () => {
+        treatmentsModal.style.display = 'none';
+    });
+
+    // Close the modal if the user clicks outside of it
+    window.addEventListener('click', (event) => {
+        if (event.target === treatmentsModal) {
+            treatmentsModal.style.display = 'none';
+        }
+    });
+});
+
+
+// Appointment Modal Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Appointment Modal Elements
+    const appointmentModal = document.getElementById('appointmentModal');
+    const bookAppointmentBtn = document.getElementById('bookAppointmentBtn2');
+    const closeAppointmentModal = document.getElementById('closeAppointmentModal');
+    const nextStep1 = document.getElementById('nextStep1');
+    const prevStep2 = document.getElementById('prevStep2');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+
+    // Register Company Modal Elements
+    const registerCompanyModal = document.getElementById('registerCompanyModal');
+    const registerLink = document.getElementById('registerLink');
+    const closeRegisterCompanyModal = document.getElementById('closeRegisterCompanyModal');
+
+    // Open Appointment Modal
+    bookAppointmentBtn.addEventListener('click', () => {
+        appointmentModal.style.display = 'block';
+    });
+
+    // Close Appointment Modal
+    closeAppointmentModal.addEventListener('click', () => {
+        appointmentModal.style.display = 'none';
+    });
+
+    // Close Appointment Modal if clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === appointmentModal) {
+            appointmentModal.style.display = 'none';
+        }
+    });
+
+    // Navigate between steps in Appointment Modal
+    nextStep1.addEventListener('click', () => {
+        step1.style.display = 'none';
+        step2.style.display = 'block';
+    });
+
+    prevStep2.addEventListener('click', () => {
+        step2.style.display = 'none';
+        step1.style.display = 'block';
+    });
+
+    // Open Register Company Modal
+    registerLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        registerCompanyModal.style.display = 'block';
+    });
+
+    // Close Register Company Modal
+    closeRegisterCompanyModal.addEventListener('click', () => {
+        registerCompanyModal.style.display = 'none';
+    });
+
+    // Close Register Company Modal if clicking outside
+    window.addEventListener('click', (event) => {
+        if (event.target === registerCompanyModal) {
+            registerCompanyModal.style.display = 'none';
+        }
+    });
+});
+
+    
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const chatButton = document.getElementById('chatButton');
+    const chatModal = document.getElementById('chatModal');
+    const closeChatModal = document.getElementById('closeChatModal');
+    const sendMessage = document.getElementById('sendMessage');
+
+    // Open the chat modal when the chat button is clicked
+    chatButton.addEventListener('click', () => {
+        chatModal.style.display = 'flex';
+    });
+
+    // Close the chat modal when the close button is clicked
+    closeChatModal.addEventListener('click', () => {
+        chatModal.style.display = 'none';
+    });
+
+    // Close the chat modal if the user clicks outside of the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === chatModal) {
+            chatModal.style.display = 'none';
+        }
+    });
+
+    // Handle sending the message
+    sendMessage.addEventListener('click', () => {
+        const textarea = chatModal.querySelector('textarea');
+        const message = textarea.value.trim();
+        if (message) {
+            // Add your message handling logic here (e.g., send the message to a server or display it in the chat)
+            console.log('Message sent:', message);
+            textarea.value = ''; // Clear the textarea after sending the message
+        }
+    });
+});
+</script>
